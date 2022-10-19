@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">EEA Tech Interview</string>
+    <string name="welcome">Welcome to the EEA Code Challenge</string>
 </resources>

@@ -7,7 +7,6 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 
 interface MovieApiService {
-
     @GET("search/movie")
     fun getMovies(
         @Query("api_key") apiKey: String,
@@ -18,5 +17,4 @@ interface MovieApiService {
     fun getGenre(
         @Query("api_key") apiKey: String
     ): Call<GenreResult>
-
 }
