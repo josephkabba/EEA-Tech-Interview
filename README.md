@@ -12,7 +12,7 @@ Your task is to implement such flow through different steps:
 
 What we ask is for you to build this project without having any particular constraints. 
 
-You can pick your preferred type of architecture (MVVM, Clean Architecture, etc) and you can use all the third-party libraries you want.
+You can pick your preferred type of architecture (MVP, MVVM, Clean Architecture, etc) and you can use all the third-party libraries you want.
 
 Onnly two requests coming from our side:
 1. You don't spend more than 3-4 hours writing the code for this project
@@ -72,13 +72,23 @@ interface MovieApiService {
 
 don't worry about the API KEY, you will find it in the project as a `const val` in the `MainActivity` class.
 
+# Unit tests
+What we would like to see is that the code created is being tested throuroughly, whether it is part of `ViewModel` classes, part of use case implementations or part of something to the effect of a repository pattern.<br />
+We consider this a very important component of the skillset of any Android developers and that is why we ask you to take some time for writing tests for whatever logic you've created.
+
 # The world is your oyster
 Bear in mind that the code provided is just a starting point and it's not necessary to follow what we've built.<br />
 Feel free to create something unique that's going to allow us to better understand how creative you are.
 
-You can play around with the Movie API calls or you can create a custom UI that reflects your experience and mind. <br />
-In a nutshell, bring anything you think could improve the quality of the project.
+You can play around with the Movie API calls or you can create a custom UI that reflects your experience and mind. You can also add nice transition animations if you want! <br />
+In a nutshell, bring anything you think could improve the quality of the project and show to us what you can do.
 
-Since we use the Movie API, what best way to wish you good luck if not with a movie quote:<br />
+Last but not least, since we are taking advantage of the Movie API, what best way to wish you good luck if not with a movie quote:<br />
 > “Sometimes it is the people who no one imagines anything of who do the things that no one can imagine.”<br />
 –Alan Turing (The Imitation Game)
+
+You can submit your project either using your own Github or through a zip file.<br />
+Once you think you've completed the task, please send an email to niccolo.passolunghi@engie.com with a link to your project!<br />
+Use the same email account in case you have questions.
+
+Enjoy the ride!
