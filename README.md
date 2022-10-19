@@ -70,6 +70,8 @@ interface MovieApiService {
 }
 ```
 
+don't worry about the API KEY, you will find it in the project as a `const val` in the `MainActivity` class.
+
 # The world is your oyster
 Bear in mind that the code provided is just a starting point and it's not necessary to follow what we've built.<br />
 Feel free to create something unique that's going to allow us to better understand how creative you are.
