@@ -16,7 +16,8 @@ const val WRITE_TIME_OUT: Long = 10
 const val CONNECT_TIME_OUT: Long = 10
 
 fun createRetrofit(
-    baseUrl: String, converterFactory: Converter.Factory,
+    baseUrl: String,
+    converterFactory: Converter.Factory,
     client: OkHttpClient
 ): Retrofit {
     return Retrofit.Builder()
@@ -26,7 +27,7 @@ fun createRetrofit(
         .build()
 }
 
-fun createCoreApiClient(context: Context): OkHttpClient {
+fun createOkHttpClient(context: Context): OkHttpClient {
 
     val clientBuilder = OkHttpClient.Builder()
         .connectTimeout(CONNECT_TIME_OUT, TimeUnit.SECONDS)
