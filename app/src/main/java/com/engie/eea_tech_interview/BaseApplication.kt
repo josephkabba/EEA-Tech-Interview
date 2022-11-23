@@ -1,10 +1,10 @@
 package com.engie.eea_tech_interview
 
-import androidx.multidex.MultiDexApplication
+import android.app.Application
 import dagger.hilt.android.HiltAndroidApp
 
 
 @HiltAndroidApp
-open class BaseApplication: MultiDexApplication() {
+open class BaseApplication: Application() {
 
 }
