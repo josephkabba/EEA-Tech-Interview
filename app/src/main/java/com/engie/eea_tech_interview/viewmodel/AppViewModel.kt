@@ -1,6 +1,7 @@
 package com.engie.eea_tech_interview.viewmodel
 
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.engie.eea_tech_interview.model.Genre
 import com.engie.eea_tech_interview.model.Movie
 import com.engie.eea_tech_interview.remote.MovieApiService
@@ -8,6 +9,8 @@ import com.engie.eea_tech_interview.utils.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.flow.stateIn
 import javax.inject.Inject
 
 @HiltViewModel
@@ -21,34 +24,25 @@ class AppViewModel @Inject constructor(
     }
 
     val movies: Flow<Resource<List<Movie>>> = flow {
-        val result = movieService.getMovies(MOVIE_API_KEY, SEARCH_QUERY)
         emit(Resource.loading())
+        val result = movieService.getMovies(MOVIE_API_KEY, SEARCH_QUERY)
 
-        try {
-            if(result.isSuccess){
-                val data = result.getOrNull();
-                emit(Resource.success(data!!.results))
-            }else {
-                emit(Resource.error("Network Error"))
-            }
-        }catch (e: Exception){
-            emit(Resource.error("No movies found"))
+        result.onSuccess {
+            emit(Resource.success(it.results))
+        }.onFailure {
+            emit(Resource.error("Network Error"))
         }
+
     }
 
     val genres: Flow<Resource<List<Genre>>> = flow {
-        val result = movieService.getGenre(MOVIE_API_KEY)
         emit(Resource.loading())
+        val result = movieService.getGenre(MOVIE_API_KEY)
 
-        try {
-            if(result.isSuccess){
-                val data = result.getOrNull();
-                emit(Resource.success(data!!.genres))
-            }else {
-                emit(Resource.error("Network Error"))
-            }
-        }catch (e: Exception){
-            emit(Resource.error("No genres found"))
+        result.onSuccess {
+            emit(Resource.success(it.genres))
+        }.onFailure {
+            emit(Resource.error("Network Error"))
         }
     }
 

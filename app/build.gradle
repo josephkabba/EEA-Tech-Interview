@@ -41,6 +41,7 @@ android {
 
 dependencies {
 
+    testImplementation project(path: ':app')
     def retrofitVersion = '2.9.0'
     def moshiVersion = '1.13.0'
 
@@ -50,6 +51,9 @@ dependencies {
     testImplementation 'junit:junit:4.13.2'
     testImplementation 'org.mockito:mockito-inline:2.23.0'
     testImplementation 'com.nhaarman.mockitokotlin2:mockito-kotlin:2.2.0'
+    testImplementation 'androidx.test.ext:junit:1.1.4'
+    testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.4'
+    testImplementation "org.jetbrains.kotlin:kotlin-test-junit:1.7.20"
     androidTestImplementation 'androidx.test.ext:junit:1.1.4'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.0'
 

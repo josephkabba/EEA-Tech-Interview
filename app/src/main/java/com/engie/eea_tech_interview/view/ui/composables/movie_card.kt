@@ -53,6 +53,10 @@ fun MovieCard(
                     )
                     .padding(10.dp)
             ) {
+
+
+
+
                 movie.title?.replaceFirstChar {
                     if (it.isLowerCase()) it.titlecase(
                         Locale.ROOT
