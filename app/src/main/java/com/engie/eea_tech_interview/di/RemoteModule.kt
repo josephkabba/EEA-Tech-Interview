@@ -1,6 +1,8 @@
 package com.engie.eea_tech_interview.di
 
 import android.content.Context
+import com.engie.eea_tech_interview.MovieRepository
+import com.engie.eea_tech_interview.data.MovieRepositoryImpl
 import com.engie.eea_tech_interview.remote.MovieApiService
 import com.engie.eea_tech_interview.utils.ResultCallAdapterFactory
 import com.squareup.moshi.Moshi
@@ -65,5 +67,13 @@ object RemoteModule {
         retrofit: Retrofit
     ): MovieApiService {
         return retrofit.create(MovieApiService::class.java)
+    }
+
+
+    @Provides
+    fun provideMovieRepository(
+        movieApiService: MovieApiService
+    ): MovieRepository {
+        return MovieRepositoryImpl(movieApiService)
     }
 }

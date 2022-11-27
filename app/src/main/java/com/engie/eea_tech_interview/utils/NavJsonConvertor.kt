@@ -19,6 +19,7 @@ object NavJsonConvertor {
     }
 
     fun movieToJson(movie: Movie): String {
+
         return movieJsonAdapter.toJson(
             movie.copy(
                 posterPath = if (!movie.posterPath.isNullOrBlank()) {
@@ -27,7 +28,7 @@ object NavJsonConvertor {
                         StandardCharsets.UTF_8.toString()
                     )
                 } else {
-                    ""
+                    null
                 }
             )
         )

@@ -1,47 +1,51 @@
 package eea_tech_interview.viewmodel
 
+import com.engie.eea_tech_interview.MovieRepository
 import com.engie.eea_tech_interview.model.Genre
 import com.engie.eea_tech_interview.model.GenreResult
 import com.engie.eea_tech_interview.model.Movie
 import com.engie.eea_tech_interview.model.SearchResult
-import com.engie.eea_tech_interview.remote.MovieApiService
 import com.engie.eea_tech_interview.utils.Resource
 import com.engie.eea_tech_interview.viewmodel.AppViewModel
 import com.nhaarman.mockitokotlin2.*
 import junit.framework.Assert.assertEquals
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.MainCoroutineDispatcher
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.test.runTest
 import org.junit.Before
 import org.junit.Test
+import org.junit.runner.RunWith
+import org.junit.runners.JUnit4
+import org.mockito.Mock
+import org.mockito.Mockito
+import org.mockito.MockitoAnnotations
 
 
 @OptIn(ExperimentalCoroutinesApi::class)
+@RunWith(JUnit4::class)
 class AppViewModelTests {
 
-
-    private lateinit var movieApiService: MovieApiService
+    @Mock
+    private lateinit var movieRepository: MovieRepository
 
     private lateinit var appViewModel: AppViewModel
 
+    @Mock
     private lateinit var moviesSearchResult: SearchResult
 
+    @Mock
     private lateinit var movieGenresResult: GenreResult
-
 
     private val apiKey = "apiKey"
     private val query = "captain america"
 
-
     @Before
     fun setUp() {
-        moviesSearchResult = mock()
-        movieGenresResult = mock()
-        movieApiService = mock()
-        appViewModel = AppViewModel(movieApiService)
+        MockitoAnnotations.initMocks(this)
+        appViewModel = AppViewModel(movieRepository)
     }
-
 
     @Test
     fun test_getMoviesFromNetWorkRepository() = runTest {
@@ -53,9 +57,7 @@ class AppViewModelTests {
         }
 
         val result = Result.success(moviesSearchResult)
-        movieApiService.stub {
-            onBlocking { getMovies(apiKey, query) } doReturn result
-        }
+        whenever(movieRepository.getMovies(apiKey,query)).thenReturn(result)
 
         //act
         val actual = appViewModel.movies
@@ -64,7 +66,7 @@ class AppViewModelTests {
         assertEquals(expected.first().status, actual.first().status)
         assertEquals(expected.last().status, actual.last().status)
         assertEquals(expected.last().data, actual.last().data)
-        verify(movieApiService).getMovies(any(), any())
+        verify(movieRepository).getMovies(any(), any())
     }
 
 
@@ -78,9 +80,7 @@ class AppViewModelTests {
         }
 
         val result = Result.success(movieGenresResult)
-        movieApiService.stub {
-            onBlocking { getGenre(apiKey) } doReturn result
-        }
+        whenever(movieRepository.getGenre(apiKey)).thenReturn(result)
 
         //act
         val actual = appViewModel.genres
@@ -89,7 +89,7 @@ class AppViewModelTests {
         assertEquals(expected.first().status, actual.first().status)
         assertEquals(expected.last().data, actual.last().data)
         assertEquals(expected.last().status, actual.last().status)
-        verify(movieApiService).getGenre(any())
+        verify(movieRepository).getGenre(any())
     }
 
 
@@ -103,9 +103,7 @@ class AppViewModelTests {
         }
 
         val result = Result.failure<GenreResult>(Exception())
-        movieApiService.stub {
-            onBlocking { getGenre(apiKey) } doReturn result
-        }
+        whenever(movieRepository.getGenre(apiKey)).thenReturn(result)
 
         //act
         val actual = appViewModel.genres
@@ -114,7 +112,7 @@ class AppViewModelTests {
         assertEquals(expected.first().status, actual.first().status)
         assertEquals(expected.last().message, actual.last().message)
         assertEquals(expected.last().status, actual.last().status)
-        verify(movieApiService).getGenre(any())
+        verify(movieRepository).getGenre(any())
     }
 
     @Test
@@ -127,9 +125,7 @@ class AppViewModelTests {
         }
 
         val result = Result.failure<SearchResult>(Exception())
-        movieApiService.stub {
-            onBlocking { getMovies(apiKey, query) } doReturn result
-        }
+        whenever(movieRepository.getMovies(apiKey, query)).thenReturn(result)
 
         //act
         val actual = appViewModel.movies
@@ -138,7 +134,7 @@ class AppViewModelTests {
         assertEquals(expected.first().status, actual.first().status)
         assertEquals(expected.last().message, actual.last().message)
         assertEquals(expected.last().status, actual.last().status)
-        verify(movieApiService).getMovies(any(), any())
+        verify(movieRepository).getMovies(any(), any())
     }
 
 }
